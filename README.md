@@ -1,7 +1,7 @@
 ### PHP scripts allow you to send form data to email / telegram / webhook or locally
 
-email.php - Send form data to email. Enter your email in setup section.
-telegram.php - Send form data to telegram Bot. Enter Bot API Token and your user id in setup section.
+email.php - Send form data to email. Enter your email in setup section.\
+telegram.php - Send form data to telegram Bot. Enter Bot API Token and your user id in setup section.\
 webhook.php - Send form data in url query params to webhook with GET method.
 
 #### How to setup
