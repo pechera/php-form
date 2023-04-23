@@ -12,6 +12,8 @@ $redirect = '/';
 
 $params = array();
 
+// GET DATA
+
 foreach ($_POST as $name => $value) {
     $params[$name] = $value;
 }
