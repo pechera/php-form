@@ -6,7 +6,7 @@ date_default_timezone_set('Europe/Rome');
 // SETUP --------------------------
 $from = 'order@youshop.com';
 $to = "";
-$redirect = 'thankyou.php';
+$redirect = '/';
 // --------------------------------
 
 $params = array();

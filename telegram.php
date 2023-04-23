@@ -7,7 +7,7 @@ date_default_timezone_set('Europe/Rome');
 $botToken = '';
 $chatId = '';
 
-$redirect = 'thankyou.php';
+$redirect = '/';
 // --------------------------------
 
 $params = array();

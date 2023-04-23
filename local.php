@@ -5,7 +5,7 @@ date_default_timezone_set('Europe/Rome');
 
 // SETUP --------------------------
 $file = 'orders.txt';
-$redirect = 'thankyou.php';
+$redirect = '/';
 // --------------------------------
 
 $params = array();
