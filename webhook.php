@@ -5,7 +5,9 @@ date_default_timezone_set('Europe/Rome');
 
 // SETUP --------------------------
 $url = "";
-$redirect = 'thankyou.php';
+$method = "GET"; // GET or POST
+
+$redirect = '/';
 // --------------------------------
 
 $params = array();
@@ -27,21 +29,24 @@ $params['curr_date_time'] = date('Y-m-d H:i:s', time());
 $params['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
   
 $ch = curl_init();
-$content = '';
-if ($ch) {
-    curl_setopt_array($ch, array(
-        CURLOPT_URL => 'http://ip-api.com/json/'.$params['ip'],
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => "",
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => "GET",
-    ));
-    $content = trim(curl_exec($ch));
-    curl_close($ch);
+
+if (!$ch) {
+    echo "Error in curl initialization.";
+    exit();
 }
-  
+
+curl_setopt_array($ch, array(
+    CURLOPT_URL => 'http://ip-api.com/json/'.$params['ip'],
+    CURLOPT_RETURNTRANSFER => true,
+    CURLOPT_ENCODING => "",
+    CURLOPT_MAXREDIRS => 10,
+    CURLOPT_TIMEOUT => 30,
+    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+    CURLOPT_CUSTOMREQUEST => "GET",
+));
+
+$content = trim(curl_exec($ch));
+
 $arr = json_decode($content, true);
   
 $params['city'] = $arr['city'];
@@ -56,14 +61,20 @@ $queryString = http_build_query($params);
 $webhookUrl = "";
 strpos($url, '?') ? $webhookUrl = $url . '&' . $queryString : $webhookUrl = $url . '?' . $queryString;
 
-$response = file_get_contents($webhookUrl);
+curl_setopt($ch, CURLOPT_URL, $webhookUrl);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
 
-$status = http_response_code();
+$response = trim(curl_exec($ch));
 
-if ($status == 200) {
-     header('Location: ' . $redirect);
-} else {
-    echo "Error. Try again!";
-}
+$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+if ($status === 200) {
+    header('Location: ' . $redirect);
+    exit();
+} 
+
+echo "Error. Filed to send data.";
+
+curl_close($ch);
 
 ?>
