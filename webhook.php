@@ -45,9 +45,9 @@ curl_setopt_array($ch, array(
     CURLOPT_CUSTOMREQUEST => "GET",
 ));
 
-$content = trim(curl_exec($ch));
+$response = trim(curl_exec($ch));
 
-$arr = json_decode($content, true);
+$arr = json_decode($response, true);
   
 $params['city'] = $arr['city'];
 $params['country'] = $arr['country'];
