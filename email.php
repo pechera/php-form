@@ -26,7 +26,7 @@ $detect = new Mobile_Detect;
 $detect->isMobile() ? $params['isMobile'] = 'MobileDevice' : $params['isMobile'] = 'DesktopPC';
 
 $params['ip'] = get_client_ip();
-$params['curr_date_time'] = date('Y-m-d H:i:s', time());
+$params['date'] = date('Y-m-d H:i:s', time());
 $params['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
 $ch = curl_init();
@@ -68,10 +68,15 @@ foreach ($params as $name => $value) {
   $message .= "$name: $value\n";
 }
 
-mail($to, "New lead from " . $params['referer'], $message, $headers);
+$result = mail($to, "New lead from " . $params['referer'], $message, $headers);
 
 // REDIRECT
 
-header('Location: '. $redirect);
+if($result) {
+	header('Location: '. $redirect);
+	exit();
+}
+
+echo "Error. Filed to send email.";
 
 ?>
