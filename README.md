@@ -1,6 +1,6 @@
-### PHP scripts allow you to send form data to email / telegram / webhook or save it locally
+## PHP scripts allow you to send form data to email / telegram / webhook or save it locally
 
-#### Description
+### Description
 
 **email.php** - Send form data to email. Enter your email in setup section.
 
@@ -10,7 +10,7 @@
 
 **local.php** - Save form data locally in txt file.
 
-#### How to setup
+### How to setup
 
 1. Rename one of files to order.php
 2. Change your html with form page:
