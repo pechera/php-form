@@ -29,22 +29,28 @@ $params['curr_date_time'] = date('Y-m-d H:i:s', time());
 $params['referer'] = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
 
 $ch = curl_init();
-$content = '';
-if ($ch) {
-	curl_setopt_array($ch, array(
-	    CURLOPT_URL => 'http://ip-api.com/json/'.$params['ip'],
-	    CURLOPT_RETURNTRANSFER => true,
-	    CURLOPT_ENCODING => "",
-	    CURLOPT_MAXREDIRS => 10,
-	    CURLOPT_TIMEOUT => 30,
-	    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	    CURLOPT_CUSTOMREQUEST => "GET",
-	));
-    $content = trim(curl_exec($ch));
-    curl_close($ch);
+
+if (!$ch) {
+    echo "Error in curl initialization.";
+    exit();
 }
 
-$arr = json_decode($content, true);
+curl_setopt_array($ch, array(
+	CURLOPT_URL => 'http://ip-api.com/json/'.$params['ip'],
+	CURLOPT_RETURNTRANSFER => true,
+	CURLOPT_ENCODING => "",
+	CURLOPT_MAXREDIRS => 10,
+	CURLOPT_TIMEOUT => 30,
+	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+	CURLOPT_CUSTOMREQUEST => "GET",
+));
+
+$response = trim(curl_exec($ch));
+
+curl_close($ch);
+
+
+$arr = json_decode($response, true);
 
 $params['city'] = $arr['city'];
 $params['country'] = $arr['country'];

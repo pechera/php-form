@@ -6,7 +6,7 @@
 
 **telegram.php** - Send form data to telegram Bot. Enter Bot API Token and your user id in setup section (check your user id in @userinfobot bot).
 
-**webhook.php** - Send form data in url query params to webhook.
+**webhook.php** - Send form data in url query params to webhook. Enter URL and method in setup section.
 
 **local.php** - Save form data locally in txt file.
 
