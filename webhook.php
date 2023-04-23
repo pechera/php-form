@@ -70,13 +70,13 @@ $response = trim(curl_exec($ch));
 
 $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
+curl_close($ch);
+
 if ($status === 200) {
     header('Location: ' . $redirect);
     exit();
 } 
 
 echo "Error. Filed to send data.";
-
-curl_close($ch);
 
 ?>

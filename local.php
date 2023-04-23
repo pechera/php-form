@@ -49,7 +49,6 @@ $response = trim(curl_exec($ch));
 
 curl_close($ch);
 
-
 $arr = json_decode($response, true);
 
 $params['city'] = $arr['city'];
